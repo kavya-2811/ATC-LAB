@@ -1,36 +1,29 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main() {
-    char ch, next;
+struct node{
+    char data;
+    struct node *left,*right;
+};
 
-    printf("Enter C code (Ctrl+Z to end):\n");
+struct node* newNode(char c){
+    struct node* n = malloc(sizeof(struct node));
+    n->data=c; n->left=n->right=NULL;
+    return n;
+}
 
-    while ((ch = getchar()) != EOF) {
-        // Check for single-line comment
-        if (ch == '/') {
-            next = getchar();
-
-            if (next == '/') {
-                // Skip till end of line
-                while ((ch = getchar()) != '\n' && ch != EOF);
-            }
-            else if (next == '*') {
-                // Skip multi-line comment
-                while (1) {
-                    ch = getchar();
-                    if (ch == '*' && (next = getchar()) == '/')
-                        break;
-                }
-            }
-            else {
-                putchar(ch);
-                putchar(next);
-            }
-        }
-        else {
-            putchar(ch);
-        }
+void inorder(struct node* root){
+    if(root){
+        inorder(root->left);
+        printf("%c ",root->data);
+        inorder(root->right);
     }
+}
 
-    return 0;
+int main(){
+    struct node *root = newNode('+');
+    root->left = newNode('a');
+    root->right = newNode('b');
+
+    inorder(root);
 }
