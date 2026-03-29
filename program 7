@@ -1,12 +1,29 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+
+struct node{
+    char data;
+    struct node *left,*right;
+};
+
+struct node* newNode(char c){
+    struct node* n = malloc(sizeof(struct node));
+    n->data=c; n->left=n->right=NULL;
+    return n;
+}
+
+void inorder(struct node* root){
+    if(root){
+        inorder(root->left);
+        printf("%c ",root->data);
+        inorder(root->right);
+    }
+}
 
 int main(){
-    char str[100];
-    fgets(str,100,stdin);
+    struct node *root = newNode('+');
+    root->left = newNode('a');
+    root->right = newNode('b');
 
-    if(strstr(str,"if") && strstr(str,"else"))
-        printf("Valid if-else\n");
-    else
-        printf("Invalid\n");
+    inorder(root);
 }
