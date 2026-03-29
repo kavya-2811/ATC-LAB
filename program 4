@@ -1,20 +1,21 @@
 #include <stdio.h>
-#include <string.h>
+#include <ctype.h>
 
-int main() {
-    char str[100], pattern[100];
+int main(){
+    char str[50];
+    scanf("%s",str);
 
-    printf("Enter the main string: ");
-    scanf("%s", str);
-
-    printf("Enter the pattern to search: ");
-    scanf("%s", pattern);
-
-    if (strstr(str, pattern) != NULL) {
-        printf("Pattern found!\n");
-    } else {
-        printf("Pattern not found.\n");
+    if(!(isalpha(str[0]) || str[0]=='_')){
+        printf("Invalid Identifier\n");
+        return 0;
     }
 
-    return 0;
+    for(int i=1;str[i];i++){
+        if(!(isalnum(str[i]) || str[i]=='_')){
+            printf("Invalid Identifier\n");
+            return 0;
+        }
+    }
+
+    printf("Valid Identifier\n");
 }
